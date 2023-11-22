@@ -1,4 +1,5 @@
-import axios from "axios";
+import axios from "axios"; // npm install axios
+import _ from "lodash"; // npm instal lodash, npm install --save-dev @types/lodash
 interface User {
   id: number;
   name: string;
@@ -24,19 +25,27 @@ interface User {
 }
 
 axios
-.get<User>("https://jsonplaceholder.typicode.com/users/1")
-.then((res) => {
-  console.log("WOOO!");
-  console.log(res.data);
-})
-.catch((e) => {
-  console.log("ERROR!", e);
-});
+  .get<User>("https://jsonplaceholder.typicode.com/users/1")
+  .then((res) => {
+    console.log("WOO!!!");
+    printUser(res.data);
+  })
+  .catch((e) => {
+    console.log("ERROR!", e);
+  });
+
+axios
+  .get<User[]>("https://jsonplaceholder.typicode.com/users")
+  .then((res) => {
+    console.log("WOO!!!");
+    res.data.forEach(printUser);
+  })
+  .catch((e) => {
+    console.log("ERROR!", e);
+  });
 
 function printUser(user: User) {
   console.log(user.name);
   console.log(user.email);
   console.log(user.phone);
 }
-
-
